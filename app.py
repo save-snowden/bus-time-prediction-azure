@@ -77,20 +77,30 @@ def predict():
         # Make prediction
         prediction = knn_model.predict(input_df)
         
+        # Convert NumPy array to a regular Python list
+        prediction_list = prediction.tolist()
+
+        # Get text values corresponding to the encoded values
+        company_text = label_encoder.inverse_transform([input_company_encoded])[0]
+        school_text = label_encoder.inverse_transform([input_school_encoded])[0]
+        traffic_text = label_encoder.inverse_transform([input_traffic_encoded])[0]
+        weather_text = label_encoder.inverse_transform([input_weather_encoded])[0]
+
         # Return the prediction and additional information as JSON
         response_data = {
-            'prediction': prediction.tolist(),
-            'school_encoded': input_school_encoded,
-            'company_encoded': input_company_encoded,
-            'traffic_encoded': input_traffic_encoded,
-            'weather_encoded': input_weather_encoded,
-            'day': input_date_time.day,
-            'hour': input_date_time.hour
+            'prediction': prediction_list,
+            'school_encoded': school_text,
+            'company_encoded': company_text,
+            'traffic_encoded': traffic_text,
+            'weather_encoded': weather_text,
+            'day': int(input_date_time.day),
+            'hour': int(input_date_time.hour)
         }
         return jsonify(response_data)
 
     except Exception as e:
         return jsonify({'error': str(e)})
+
 
 if __name__ == '__main__':
     app.run()
