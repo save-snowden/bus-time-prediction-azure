@@ -77,8 +77,17 @@ def predict():
         # Make prediction
         prediction = knn_model.predict(input_df)
         
-        # Return the prediction as JSON
-        return jsonify({'prediction': prediction.tolist()})
+        # Return the prediction and additional information as JSON
+        response_data = {
+            'prediction': prediction.tolist(),
+            'school_encoded': input_school_encoded,
+            'company_encoded': input_company_encoded,
+            'traffic_encoded': input_traffic_encoded,
+            'weather_encoded': input_weather_encoded,
+            'day': input_date_time.day,
+            'hour': input_date_time.hour
+        }
+        return jsonify(response_data)
 
     except Exception as e:
         return jsonify({'error': str(e)})
