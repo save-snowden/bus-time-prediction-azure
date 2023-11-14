@@ -28,7 +28,19 @@ jobs:
           source venv/bin/activate
       
       - name: Install dependencies
-        run: pip install -r requirements.txt
+        run: sudo apt-get install build-essential
+      
+      - name: Install dependencies
+        run: pip install flask
+        
+      - name: Install dependencies
+        run: pip install panda
+
+      - name: Install dependencies
+        run: pip install scikit-learn
+
+      - name: Install dependencies
+        run: pip install joblib
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
