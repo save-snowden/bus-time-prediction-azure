@@ -1,3 +1,3 @@
 # bus-time-prediction-azure
 
-Tesring the API Connection with Azure
+Testing the API Connection with Azure
